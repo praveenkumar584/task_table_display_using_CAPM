@@ -210,10 +210,16 @@ sap.ui.define([
         {
             //Edit at the Panel level Data
         },
-        closePanel:function()
+        closePanel: function()
         {
             const oView = this.getView();
-            oView.byId("_IDGenPanel").setVisible(false);
+            const oPanel = oView.byId("_IDGenPanel");
+            oPanel.setVisible(false);
+            const oTable = oView.byId("_IDGenTable");
+            oTable.removeSelections(true);
+            const oSelectedModel = oView.getModel("selected");
+            oSelectedModel.setData({});
         }
+
     });
 });

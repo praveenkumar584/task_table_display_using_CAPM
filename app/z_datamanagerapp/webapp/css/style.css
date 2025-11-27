@@ -18,3 +18,12 @@
     gap: 26px;
     padding-left: 1000px;
 }
+#editDialog {
+    right: 0;
+    left: auto;
+}
+.sidebarDialog {
+    position: absolute !important;
+    right: 0 !important;
+    margin-left: auto !important;
+}
