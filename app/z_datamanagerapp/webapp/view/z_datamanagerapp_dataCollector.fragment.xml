@@ -1,0 +1,77 @@
+<core:FragmentDefinition id="_IDGenFragmentDefinition1" 
+xmlns="sap.m" 
+xmlns:f="sap.ui.layout.form"
+xmlns:core="sap.ui.core">
+    <Dialog id="_IDGenDialog"  title="Employee Details" contentWidth="600px" draggable="true" resizable="true">
+        <f:SimpleForm id="_IDGenSimpleForm" editable="true" layout="ColumnLayout" >
+            <Label id="_IDGenLabel21" text="Employee ID"/>
+            <Input id="_IDGenInput" value="{emp>/basicInfo/employeeID}" required="true" />
+            <Label id="_IDGenLabel22" text="First Name"/>
+            <Input id="_IDGenInput1" value="{emp>/basicInfo/firstName}" required="true" />
+            <Label id="_IDGenLabel23" text="Last Name"/>
+            <Input id="_IDGenInput2" value="{emp>/basicInfo/lastName}" required="true" />
+            <Label id="_IDGenLabel30" text="Job Title"/>
+            <Input id="_IDGenInput6" value="{emp>/basicInfo/jobTitle}"/>
+            <Label id="_IDGenLabel24" text="Gender"/>
+            <Select id="_IDGenSelect" selectedKey="{emp>/details/gender}">
+                <items>
+                    <core:Item id="_IDGenItem8" key="" text="--select--"></core:Item>
+                    <core:Item id="_IDGenItem" key="Male" text="Male"/>
+                    <core:Item id="_IDGenItem1" key="Female" text="Female"/>
+                    <core:Item id="_IDGenItem2" key="Other" text="Other"/>
+                </items>
+            </Select>
+            <Label id="_IDGenLabel25" text="Email"/>
+            <Input id="_IDGenInput3" value="{emp>/details/email}" type="Email" required="true"/>
+            <Label id="_IDGenLabel26" text="Department"/>
+            <Input id="_IDGenInput4" value="{emp>/details/department}" required="true"/>
+            <Label id="_IDGenLabel27" text="Employment Type"/>
+            <Select id="_IDGenSelect1" selectedKey="{emp>/details/employmentType}">
+                <items>
+                    <core:Item id="_IDGenItem10" key="" text="--select--"></core:Item>
+                    <core:Item id="_IDGenItem3" key="Full Time" text="Full Time"/>
+                    <core:Item id="_IDGenItem4" key="Part Time" text="Part Time"/>
+                    <core:Item id="_IDGenItem5" key="Contract" text="Contract"/>
+                </items>
+            </Select>
+            <Label id="_IDGenLabel28" text="Marital Status"/>
+            <Select id="_IDGenSelect2" selectedKey="{emp>/details/maritalStatus}">
+                <items>
+                    <core:Item id="_IDGenItem11" key="" text="--select--"></core:Item>
+                    <core:Item id="_IDGenItem6" key="married" text="Married"/>
+                    <core:Item id="_IDGenItem7" key="unmarried" text="Unmarried"/>
+                </items>
+            </Select>
+            <Label id="_IDGenLabel29" text="Salary"/>
+            <Input id="_IDGenInput5" value="{emp>/details/salary}" type="Number"/>
+            <Label id="_IDGenLabel31" text="Birth Date"/>
+            <DatePicker id="_IDGenDatePicker" value="{emp>/details/birthDate}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
+            <Label id="_IDGenLabel32" text="Hire Date"/>
+            <DatePicker id="_IDGenDatePicker1" value="{emp>/details/hireDate}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
+            <Label id="_IDGenLabel33" text="Address"/>
+            <Input id="_IDGenInput7" value="{emp>/details/address}"/>
+            <Label id="_IDGenLabel34" text="City"/>
+            <Input id="_IDGenInput8" value="{emp>/details/city}"/>
+            <Label id="_IDGenLabel35" text="Region"/>
+            <Input id="_IDGenInput9" value="{emp>/details/region}"/>
+            <Label id="_IDGenLabel36" text="Postal Code"/>
+            <Input id="_IDGenInput10" value="{emp>/details/postalCode}"/>
+            <Label id="_IDGenLabel37" text="Country"/>
+            <Input id="_IDGenInput11" value="{emp>/details/country}"/>
+            <Label id="_IDGenLabel38" text="Phone Number"/>
+            <Input id="_IDGenInput12" value="{emp>/details/phoneNumber}" type="Tel"/>
+            <Label id="_IDGenLabel39" text="Emergency Contact Name"/>
+            <Input id="_IDGenInput13" value="{emp>/details/emergencyContactName}" required="true"/>
+            <Label id="_IDGenLabel40" text="Emergency Contact Phone"/>
+            <Input id="_IDGenInput14" value="{emp>/details/emergencyContactPhone}" type="Tel"/>
+            <Label id="_IDGenLabel41" text="Reports To"/>
+            <Input id="_IDGenInput15" value="{emp>/details/reportsTo}" required="true"/>
+        </f:SimpleForm>
+        <beginButton>
+            <Button id="_IDGenButton7"  text="Save" type="Success" icon="sap-icon://save" press=".onSaveEmployee"/>
+        </beginButton>
+        <endButton>
+            <Button id="_IDGenButton8" text="Cancel" type="Negative" press=".onCancelDialog"/>
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

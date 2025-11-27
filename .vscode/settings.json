@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "db_conn",
+            "database": "${workspaceFolder:z_business_table_manager}/employeeTablesDatabase"
+        }
+    ]
+}

@@ -1,0 +1,109 @@
+_schema-version: 3.3.0
+ID: z_business_table_manager
+description: A simple CAP project.
+version: 1.0.0
+modules:
+- name: z_business_table_manager-srv
+  type: nodejs
+  path: gen/srv
+  requires:
+  - name: z_business_table_manager-auth
+  - name: z_business_table_manager-postgres
+  - name: z_business_table_manager-connectivity
+  - name: z_business_table_manager-destination
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: z_business_table_manager-postgres-deployer
+  type: nodejs
+  path: gen/pg
+  requires:
+  - name: z_business_table_manager-postgres
+  parameters:
+    buildpack: nodejs_buildpack
+    no-route: true
+    no-start: true
+    tasks:
+    - command: npm start
+      name: deploy-to-postgresql
+- name: z_business_table_manager-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: z_business_table_manager-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - zdatamanagerapp.zip
+      name: zdatamanagerapp
+      target-path: resources/
+- name: zdatamanagerapp
+  type: html5
+  path: app/z_datamanagerapp
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: z_business_table_manager-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: dedicated
+      xsappname: z_business_table_manager-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: z_business_table_manager-postgres
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: postgresql-db
+    service-plan: development
+- name: z_business_table_manager-connectivity
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: connectivity
+    service-plan: lite
+- name: z_business_table_manager-destination
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+    service: destination
+    service-plan: lite
+- name: z_business_table_manager-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: z_business_table_manager-html5-service
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production

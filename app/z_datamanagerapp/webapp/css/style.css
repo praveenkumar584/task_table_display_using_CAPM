@@ -1,0 +1,20 @@
+.firstHBox
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: left;
+    gap: 26px;
+    padding-left: 900px;
+}
+.labelColumn
+{
+    background-color: red !important;
+}
+.secondHBox
+{
+    display: flex;
+    justify-content: flex-start;
+    align-items: left;
+    gap: 26px;
+    padding-left: 1000px;
+}

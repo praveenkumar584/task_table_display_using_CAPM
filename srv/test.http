@@ -1,0 +1,58 @@
+POST http://localhost:4004/odata/v4/z-service-employee-info/addEmployee
+Content-Type: application/json
+
+{
+    "basicInfo": {
+    "employeeID": 102,
+    "firstName": "Praveen",
+    "lastName": "Kumar",
+    "jobTitle": "Developer"
+  },
+  "details": {
+    "gender": "Male",
+    "email": "praveen@example.com",
+    "department": "IT",
+    "employmentType": "Full Time",
+    "maritalStatus": "unmarried",
+    "salary": 50000,
+    "birthDate": "1990-05-15",
+    "hireDate": "2025-01-01",
+    "address": "123 Street",
+    "city": "Mumbai",
+    "region": "MH",
+    "postalCode": "400001",
+    "country": "India",
+    "phoneNumber": "9876543210",
+    "emergencyContactName": "Jane Doe",
+    "emergencyContactPhone": "9876543211",
+    "reportsTo": "Manager001"
+  }
+}
+
+###Update BasicInfo
+POST http://localhost:4004/odata/v4/z-service-employee-info/updateBasicInfo
+Content-Type: application/json
+
+{
+  "employeeID":102,
+  "firstName": "Praveen Updated",
+  "lastName": "Kumar Updated",
+  "jobTitle": "Senior Developer"
+}
+###Update MoreInfo 
+POST http://localhost:4004/odata/v4/z-service-employee-info/updateMoreInfo
+Content-Type: application/json
+
+{
+  "employeeID": 101,
+  "department": "R&D",
+  "salary": 55000,
+  "phoneNumber": "9123456789"
+}
+###Delete API
+POST http://localhost:4004/v4/z-service-employee-info/deleteEmployee
+Content-Type: application/json
+
+{
+  "employeeID": 101
+}
