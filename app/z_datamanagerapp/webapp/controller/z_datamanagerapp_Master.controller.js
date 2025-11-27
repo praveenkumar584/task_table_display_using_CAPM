@@ -1,6 +1,8 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "sap/ui/core/mvc/Controller",
+    "sap/m/MessageBox",
+    "sap/m/MessageToast"
+], (Controller,MessageBox, MessageToast) => {
     "use strict";
     return Controller.extend("zdatamanagerapp.controller.z_datamanagerapp_Master", {
         onInit() {
@@ -87,6 +89,7 @@ sap.ui.define([
                 sap.m.MessageBox.error(err.message);
                 console.error(err);
             }
+            this.byId("_IDGenTable").getBinding("items").refresh();
         },
         onCancelDialog:function()
         {
@@ -101,13 +104,61 @@ sap.ui.define([
                 console.error("Dialog instance is not created");
             }
         },
-        onEdit:function()
+        onEdit: async function()
         {
-            //Edit at Table
+            
         },
-        onDelete:function()
+        onDelete: async function ()
         {
-            //Delete
+            const oTable = this.byId("_IDGenTable");
+            const oSelected = oTable.getSelectedItem();
+            if (!oSelected)
+            {
+                sap.m.MessageToast.show("Please select an employee to delete");
+                return;
+            }
+            const employeeID = oSelected.getBindingContext().getProperty("employeeID");
+            const bConfirm = await new Promise((resolve) => {
+                MessageBox.confirm(
+                    `Are you sure you want to delete Employee ID: ${employeeID}?`,
+                    {
+                        title: "Confirm Delete",
+                        actions: [sap.m.MessageBox.Action.OK, sap.m.MessageBox.Action.CANCEL],
+                        emphasizedAction: sap.m.MessageBox.Action.OK,
+                        onClose: (sAction) => resolve(sAction === sap.m.MessageBox.Action.OK)
+                    }
+                );
+            });
+            if (!bConfirm) 
+            {
+                return;
+            }
+            try
+            {
+                const response = await fetch("/odata/v4/z-service-employee-info/deleteEmployee", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ employeeID })
+                });
+                if (!response.ok)
+                {
+                    const errorMessage = await response.text();
+                    throw new Error(errorMessage);
+                }
+                sap.m.MessageToast.show("Employee deleted successfully");
+
+            }
+            catch (err)
+            {
+                sap.m.MessageBox.error("Delete failed: " + err.message);
+                console.error(err);
+            }
+            this.byId("_IDGenTable").getBinding("items").refresh();
+            var oPanel = this.byId("_IDGenPanel");
+            oPanel.setVisible(false);
+
         },
         onRefresh:function()
         {
