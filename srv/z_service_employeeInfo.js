@@ -88,8 +88,9 @@ module.exports = cds.service.impl(async function () {
         try
         {
             details.employeeID = basicInfo.employeeID;
-            await INSERT.into(EmployeeBasicInfo).entries({ ...basicInfo });
-            await INSERT.into(EmployeesMoreInfo).entries({ ...details });
+            const tx = cds.tx(req);
+            await tx.run(INSERT.into(EmployeeBasicInfo).entries({ ...basicInfo }));
+            await tx.run(INSERT.into(EmployeesMoreInfo).entries({ ...details }));
             return { message: `Employee ${basicInfo.employeeID} inserted successfully in both tables.` };
 
         } 
@@ -101,70 +102,56 @@ module.exports = cds.service.impl(async function () {
 
     //update API for EmployeeBasicInfo
 
-    this.on('updateBasicInfo', async (req) => {
-        const { basicInfo } = req.data;
-        if (!basicInfo?.employeeID)
+    this.on("updateBasicInfo", async (req) => {
+        const basic = req.data.basicInfo;
+        if (!basic)
         {
-            return req.reject(400, 'EmployeeBasicInfo: employeeID is mandatory.');
+            return req.reject(400, "basicInfo is required.");
         }
-        try
+        const { employeeID, firstName, lastName, jobTitle } = basic;
+        if (!employeeID)
         {
-            const affected = await UPDATE(EmployeeBasicInfo).set(basicInfo).where({ employeeID: basicInfo.employeeID });
-            if (affected === 0)
-            {
-                return req.reject(404, `Employee ${basicInfo.employeeID} not found.`);
-            }
-            return `EmployeeBasicInfo for ${basicInfo.employeeID} updated successfully.`;
-
+            return req.reject(400, "employeeID is mandatory.");
         }
-        catch (err)
+        const updateData = { firstName, lastName, jobTitle };
+        const result = await UPDATE(EmployeeBasicInfo).set(updateData).where({ employeeID });
+        if (result === 0)
         {
-            return req.reject(500, 'Update failed: ' + err.message);
+            return req.reject(404, "Employee not found.");
         }
+        return `Basic info updated for employee ${employeeID}`;
     });
+
     //Update API for EmployeeMoreInfo
-    this.on('updateMoreInfo', async (req) => {
+    this.on("updateMoreInfo", async (req) => {
         const { details } = req.data;
-        if (!details?.employeeID)
+        if (!details || !details.employeeID)
         {
-            return req.reject(400, 'EmployeesMoreInfo: employeeID is mandatory.');
+            return req.reject(400, "employeeID is mandatory for update.");
         }
-        try
+        const employeeID = details.employeeID;
+        delete details.employeeID;
+        const result = await UPDATE(EmployeesMoreInfo).set(details).where({ employeeID });
+        if (result === 0)
         {
-            const affected = await UPDATE(EmployeesMoreInfo).set(details).where({ employeeID: details.employeeID });
-            if (affected === 0)
-            {
-                return req.reject(404, `EmployeesMoreInfo for ${details.employeeID} not found.`);
-            }
-            return `EmployeesMoreInfo for ${details.employeeID} updated successfully.`;
-
+            return req.reject(404, "Employee details not found.");
         }
-        catch (err)
-        {
-            return req.reject(500, 'Update failed: ' + err.message);
-        }
+        return `More info updated for employee ${employeeID}`;
     });
+
     //Delete API for both tables
-    this.on('deleteEmployee', async (req) => {
+    this.on("deleteEmployee", async (req) => {
         const { employeeID } = req.data;
         if (!employeeID)
         {
-            return req.reject(400, 'employeeID is required.');
+            return req.reject(400, "employeeID is required.");
         }
-        try
+        await DELETE.from(EmployeesMoreInfo).where({ employeeID });
+        const basicDeleted = await DELETE.from(EmployeeBasicInfo).where({ employeeID });
+        if (basicDeleted === 0)
         {
-            await DELETE.from(EmployeesMoreInfo).where({ employeeID });
-            const affected = await DELETE.from(EmployeeBasicInfo).where({ employeeID });
-            if (affected === 0)
-            {
-                return req.reject(404, `Employee ${employeeID} not found.`);
-            }
-            return `Employee ${employeeID} deleted successfully from both tables.`;
-
+            return req.reject(404, "Employee not found.");
         }
-        catch (err)
-        {
-            return req.reject(500, 'Delete failed: ' + err.message);
-        }
+        return `Employee ${employeeID} deleted from both tables.`;
     });
 });

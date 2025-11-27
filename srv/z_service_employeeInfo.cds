@@ -21,6 +21,7 @@ service z_service_employeeInfo {
 
     type EmployeeMoreInput
     {
+        employeeID: Integer;
         gender:String;
         email:String;
         department:String;
@@ -40,7 +41,9 @@ service z_service_employeeInfo {
         reportsTo: String;
     };
     action addEmployee(basicInfo:EmployeeBasicInput, details:EmployeeMoreInput) returns String;
+    
     action updateBasicInfo(basicInfo: EmployeeBasicInput) returns String;
+
     action updateMoreInfo(details: EmployeeMoreInput) returns String;
     action deleteEmployee(employeeID: Integer) returns String;
 }

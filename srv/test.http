@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "basicInfo": {
-    "employeeID": 102,
+    "employeeID": 105,
     "firstName": "Praveen",
     "lastName": "Kumar",
     "jobTitle": "Developer"
@@ -34,23 +34,32 @@ POST http://localhost:4004/odata/v4/z-service-employee-info/updateBasicInfo
 Content-Type: application/json
 
 {
-  "employeeID":102,
-  "firstName": "Praveen Updated",
-  "lastName": "Kumar Updated",
-  "jobTitle": "Senior Developer"
+  "basicInfo": {
+    "employeeID": 102,
+    "firstName": "Praveen ",
+    "lastName": "Kumar Updated",
+    "jobTitle": "Senior Developer"
+  }
 }
+
+
+
 ###Update MoreInfo 
 POST http://localhost:4004/odata/v4/z-service-employee-info/updateMoreInfo
 Content-Type: application/json
 
 {
-  "employeeID": 101,
-  "department": "R&D",
-  "salary": 55000,
-  "phoneNumber": "9123456789"
+  "details": {
+    "employeeID": 102,
+    "email":"kumar@gmail.com",
+    "department": "R&D",
+    "salary": 55000,
+    "phoneNumber": "9123456789"
+  }
 }
+
 ###Delete API
-POST http://localhost:4004/v4/z-service-employee-info/deleteEmployee
+POST http://localhost:4004/odata/v4/z-service-employee-info/deleteEmployee
 Content-Type: application/json
 
 {

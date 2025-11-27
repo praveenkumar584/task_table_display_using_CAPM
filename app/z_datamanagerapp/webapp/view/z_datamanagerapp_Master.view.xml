@@ -8,6 +8,7 @@
         <VBox id="_IDGenVBox" >
             <HBox id="_IDGenHBox" class="sapUiSmallMarginTop firstHBox">
                 <Button id="_IDGenButton" text="Add" press=".onAdd" icon="sap-icon://add" type="Emphasized"/>
+                <Button id="_IDGenButton1" text="Edit" press=".onEdit" icon="sap-icon://edit" type="Ghost" />
                 <Button id="_IDGenButton2" text="Delete" press=".onDelete" icon="sap-icon://delete" type="Negative" /> 
                 <Button id="_IDGenButton3" text="Refresh" icon="sap-icon://refresh" press=".onRefresh"/> 
             </HBox>
@@ -17,18 +18,14 @@
                     <Column id="_IDGenColumn" class="labelColumn"><Text id="_IDGenText" text="First Name"/></Column>
                     <Column id="_IDGenColumn5" class="labelColumn"><Text id="_IDGenText28" text="Last Name"/></Column>
                     <Column id="_IDGenColumn1" class="labelColumn"><Text id="_IDGenText1" text="Job Title"/></Column>
-                    <Column id="_IDGenColumn2" class="labelColumn"><Text id="_IDGenText12" text=""></Text></Column>
-                    <Column id="_IDGenColumn4" class="labelColumn"><Text id="_IDGenText26" text=""></Text></Column>
                 </columns>
                 <items>
                     <ColumnListItem id="_IDGenColumnListItem">
                     <cells>
-                        <Text id="_IDGenText41" text="{employeeID}"/>
+                        <Text id="_IDGenText41" text="{employeeID}" />
                         <Text id="_IDGenText4" text="{firstName}"/>
                         <Text id="_IDGenText27" text="{lastName}"></Text>
                         <Text id="_IDGenText5" text="{jobTitle}"/>
-                        <Button id="_IDGenButton1" text="Edit" press=".onEdit" icon="sap-icon://edit" type="Ghost" />
-                        <Button id="_IDGenButton4" text="View more" press=".viewMore" icon="sap-icon://view" type="Neutral" visible="true" ></Button>
                     </cells>
                     </ColumnListItem>
                 </items>
@@ -36,7 +33,7 @@
 
              <Panel id="_IDGenPanel"  headerText="More Details of " visible="false" class="sapUiSmallMarginTop">
                 <HBox id="_IDGenHBox1" class="secondHBox">
-                    <Button id="_IDGenButton6" text="Edit" press=".onEdit" icon="sap-icon://edit" type="Ghost" />
+                    <Button id="_IDGenButton6" text="Edit" press=".onEditPanelData" icon="sap-icon://edit" type="Ghost" />
                     <Button id="_IDGenButton5" text="Close" press=".closePanel" type="Reject" ></Button>
                 </HBox>
                 <f:SimpleForm id="_IDGenSimpleForm1" editable="true" layout="ColumnLayout">
