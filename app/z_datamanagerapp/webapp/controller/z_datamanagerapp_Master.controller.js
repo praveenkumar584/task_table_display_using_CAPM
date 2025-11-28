@@ -80,8 +80,11 @@ sap.ui.define([
                     throw new Error(msg);
                 }
                 const result = await response.json();
-                sap.m.MessageToast.show(result.value || result.message || "Employee added successfully");
-                if (this.oDialog) this.oDialog.close();
+                sap.m.MessageBox.success("Employee added successfully");
+                if (this.oDialog)
+                {
+                    this.oDialog.close();
+                }
 
             } 
             catch (err)
@@ -104,17 +107,85 @@ sap.ui.define([
                 console.error("Dialog instance is not created");
             }
         },
-        onEdit: async function()
+        //Basic Table Update API
+        onEdit: async function ()
         {
-            
+            const oTable = this.byId("_IDGenTable");
+            const oSelectedItem = oTable.getSelectedItem();
+            if (!oSelectedItem)
+            {
+                sap.m.MessageBox.warning("Please select an employee first.");
+                return;
+            }
+            const oContext = oSelectedItem.getBindingContext();
+            this.selectedEmployee = oContext.getObject();
+            if (!this.editDialog)
+            {
+                this.editDialog = await sap.ui.core.Fragment.load({
+                    name: "zdatamanagerapp.view.z_datamanagerapp_editEmployee",
+                    controller: this
+                });
+                this.getView().addDependent(this.editDialog);
+            }
+            sap.ui.getCore().byId("empId").setValue(this.selectedEmployee.employeeID);
+            sap.ui.getCore().byId("firstName").setValue(this.selectedEmployee.firstName);
+            sap.ui.getCore().byId("lastName").setValue(this.selectedEmployee.lastName);
+            sap.ui.getCore().byId("jobTitle").setValue(this.selectedEmployee.jobTitle);
+            this.editDialog.open();
         },
+        onCancelEdit: function ()
+        {
+            if (this.editDialog)
+            {
+                this.editDialog.close();
+            }
+        },
+        onSaveEdit: async function ()
+        {
+            const employeeID = sap.ui.getCore().byId("empId").getValue();
+            const firstName  = sap.ui.getCore().byId("firstName").getValue();
+            const lastName   = sap.ui.getCore().byId("lastName").getValue();
+            const jobTitle   = sap.ui.getCore().byId("jobTitle").getValue();
+            const payload = {
+                basicInfo: {
+                    employeeID,
+                    firstName,
+                    lastName,
+                    jobTitle
+                }
+            };
+            try
+            {
+                const response = await fetch("/odata/v4/z-service-employee-info/updateBasicInfo", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok)
+                {
+                    const error = await response.json();
+                    throw new Error(error.error?.message || "Failed to update employee.");
+                }
+                const result = await response.text();
+                sap.m.MessageToast.show("Updated Successfully");
+                this.editDialog.close();
+            } 
+            catch (err)
+            {
+                sap.m.MessageBox.error(err.message);
+            }
+            this.byId("_IDGenTable").getBinding("items").refresh();
+        },
+
+
+        //Delete API functionality
         onDelete: async function ()
         {
             const oTable = this.byId("_IDGenTable");
             const oSelected = oTable.getSelectedItem();
             if (!oSelected)
             {
-                sap.m.MessageToast.show("Please select an employee to delete");
+                sap.m.MessageBox.warning("Please select an employee first.");
                 return;
             }
             const employeeID = oSelected.getBindingContext().getProperty("employeeID");
@@ -147,7 +218,7 @@ sap.ui.define([
                     const errorMessage = await response.text();
                     throw new Error(errorMessage);
                 }
-                sap.m.MessageToast.show("Employee deleted successfully");
+                sap.m.MessageBox.success("Deleted Successfully");
 
             }
             catch (err)
@@ -160,6 +231,7 @@ sap.ui.define([
             oPanel.setVisible(false);
 
         },
+        //Refresh Functionality
         onRefresh:function()
         {
             var oModel = this.getView().getModel();
@@ -206,9 +278,10 @@ sap.ui.define([
                 sap.m.MessageToast.show("Error while fetching details.");
             }
         },
+        //Edit at the Panel level Data
         onEditPanelData:function()
         {
-            //Edit at the Panel level Data
+           
         },
         closePanel: function()
         {
@@ -219,6 +292,7 @@ sap.ui.define([
             oTable.removeSelections(true);
             const oSelectedModel = oView.getModel("selected");
             oSelectedModel.setData({});
+            sap.m.MessageToast.show("closed more Details Panel")
         }
 
     });
