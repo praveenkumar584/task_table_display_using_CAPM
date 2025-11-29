@@ -5,7 +5,8 @@ sap.ui.define([
 ], (Controller,MessageBox, MessageToast) => {
     "use strict";
     return Controller.extend("zdatamanagerapp.controller.z_datamanagerapp_Master", {
-        onInit() {
+        onInit() 
+        {
              this.getView().setModel(new sap.ui.model.json.JSONModel(), "selected");
         },
         onAdd:function ()
@@ -281,7 +282,67 @@ sap.ui.define([
         //Edit at the Panel level Data
         onEditPanelData:function()
         {
-           
+            this.byId("_IDGenPanel").setVisible(false); 
+            const oPanel = this.byId("moreInfoPanel");
+            oPanel.setVisible(true);
+        },
+        onSaveMoreInfo: async function ()
+        {
+            const data = this.getView().getModel("selected").getData();
+            const payload = 
+            {
+                details: {
+                    employeeID: data.employeeID,
+                    email: data.email,
+                    department: data.department,
+                    employmentType: data.employmentType,
+                    maritalStatus: data.maritalStatus,
+                    birthDate: data.birthDate,
+                    gender: data.gender,
+                    salary: data.salary,
+                    hireDate: data.hireDate,
+                    address: data.address,
+                    city: data.city,
+                    region: data.region,
+                    postalCode: data.postalCode,
+                    country: data.country,
+                    phoneNumber: data.phoneNumber,
+                    emergencyContactName: data.emergencyContactName,
+                    emergencyContactPhone: data.emergencyContactPhone,
+                    reportsTo: data.reportsTo
+                }
+            };
+            try
+            {
+                const response = await fetch("/odata/v4/z-service-employee-info/updateMoreInfo", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok)
+                {
+                    const errorText = await response.text();
+                    throw new Error(errorText);
+                }
+                const result = await response.text();
+                sap.m.MessageBox.success("Updated successfully");
+                this.byId("moreInfoPanel").setVisible(false);
+                this.byId("_IDGenPanel").setVisible(true);
+              
+
+            }
+            catch (err)
+            {
+                sap.m.MessageBox.error("Update Failed: " + err.message);
+            }
+        },
+        onCloseMoreInfoEditPanel:function()
+        {
+            this.byId("_IDGenPanel").setVisible(true);
+            this.byId("moreInfoPanel").setVisible(false);
         },
         closePanel: function()
         {

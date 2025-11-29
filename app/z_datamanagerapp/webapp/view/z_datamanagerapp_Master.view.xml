@@ -1,6 +1,7 @@
 <mvc:View controllerName="zdatamanagerapp.controller.z_datamanagerapp_Master"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
+    xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form">
     <Page id="page" title="{i18n>title}">
 
@@ -31,7 +32,7 @@
                 </items>
             </Table>
 
-             <Panel id="_IDGenPanel"  headerText="More Details of " visible="false" class="sapUiSmallMarginTop">
+            <Panel id="_IDGenPanel"  headerText="More Details of " visible="false" class="sapUiSmallMarginTop">
                 <HBox id="_IDGenHBox1" class="secondHBox">
                     <Button id="_IDGenButton6" text="Edit" press=".onEditPanelData" icon="sap-icon://edit" type="Ghost" />
                     <Button id="_IDGenButton5" text="Close" press=".closePanel" type="Reject" ></Button>
@@ -77,7 +78,75 @@
                 </f:SimpleForm>
                 </Panel>
         </VBox>
-    </content>
 
-    </Page>
+    
+
+
+
+    <Panel id="moreInfoPanel" headerText="More Details" visible="false" class="sapUiSmallMarginTop">
+        <HBox id="_IDGenHBox2" class="secondHBox">
+            <Button id="_IDGenButton10" text="Save" press=".onSaveMoreInfo" icon="sap-icon://save" type="Emphasized"/>
+            <Button id="_IDGenButton11" text="Close" press=".onCloseMoreInfoEditPanel" type="Reject"/>
+        </HBox>
+        <f:SimpleForm id="_IDGenSimpleForm2" editable="true" layout="ColumnLayout">
+            <Label id="_IDGenLabel43" text="Employee ID"/>
+            <Input id="_IDGenInput17" value="{selected>/employeeID}" editable="false" />
+            <Label id="_IDGenLabel44" text="Email"/>
+            <Input id="_IDGenInput18" value="{selected>/email}"/>
+            <Label id="_IDGenLabel45" text="Department"/>
+            <Input id="_IDGenInput19" value="{selected>/department}"/>
+            <Label id="_IDGenLabel46" text="Gender"/>
+            <Select id="_IDGenSelect3" selectedKey="{selected>/gender}">
+                <items>
+                    <core:Item id="_IDGenItem9" key="" text="--select--"></core:Item>
+                    <core:Item id="_IDGenItem12" key="Male" text="Male"/>
+                    <core:Item id="_IDGenItem13" key="Female" text="Female"/>
+                    <core:Item id="_IDGenItem14" key="Other" text="Other"/>
+                </items>
+            </Select>
+            <Label id="_IDGenLabel47" text="Employment Type"/>
+            <Select id="_IDGenSelect4" selectedKey="{selected>/employmentType}">
+                <items>
+                    <core:Item id="_IDGenItem15" key="" text="--select--"></core:Item>
+                    <core:Item id="_IDGenItem16" key="Full Time" text="Full Time"/>
+                    <core:Item id="_IDGenItem17" key="Part Time" text="Part Time"/>
+                    <core:Item id="_IDGenItem18" key="Contract" text="Contract"/>
+                </items>
+            </Select>
+            <Label id="_IDGenLabel48" text="Marital Status"/>
+            <Select id="_IDGenSelect5" selectedKey="{selected>/maritalStatus}">
+                <items>
+                    <core:Item id="_IDGenItem19" key="" text="--select--"></core:Item>
+                    <core:Item id="_IDGenItem20" key="married" text="Married"/>
+                    <core:Item id="_IDGenItem21" key="unmarried" text="Unmarried"/>
+                </items>
+            </Select>
+            <Label id="_IDGenLabel49" text="Birth Date"/>
+            <DatePicker id="_IDGenDatePicker2" value="{selected>/birthDate}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
+            <Label id="_IDGenLabel50" text="Hire Date"/>
+            <DatePicker id="_IDGenDatePicker3" value="{selected>/hireDate}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
+            <Label id="_IDGenLabel51" text="Salary"/>
+            <Input id="_IDGenInput20" value="{selected>/salary}"/>
+            <Label id="_IDGenLabel52" text="Address"/>
+            <Input id="_IDGenInput21" value="{selected>/address}"/>
+            <Label id="_IDGenLabel53" text="City"/>
+            <Input id="_IDGenInput22" value="{selected>/city}"/>
+            <Label id="_IDGenLabel54" text="Region"/>
+            <Input id="_IDGenInput23" value="{selected>/region}"/>
+            <Label id="_IDGenLabel55" text="Postal Code"/>
+            <Input id="_IDGenInput24" value="{selected>/postalCode}"/>
+            <Label id="_IDGenLabel56" text="Country"/>
+            <Input id="_IDGenInput25" value="{selected>/country}"/>
+            <Label id="_IDGenLabel57" text="Phone"/>
+            <Input id="_IDGenInput26" value="{selected>/phoneNumber}"/>
+            <Label id="_IDGenLabel58" text="Emergency Contact Name"/>
+            <Input id="_IDGenInput27" value="{selected>/emergencyContactName}"/>
+            <Label id="_IDGenLabel59" text="Emergency Contact Phone"/>
+            <Input id="_IDGenInput28" value="{selected>/emergencyContactPhone}"/>
+            <Label id="_IDGenLabel60" text="Reports To"/>
+            <Input id="_IDGenInput29" value="{selected>/reportsTo}"/>
+        </f:SimpleForm>
+    </Panel>
+</content>
+</Page>
 </mvc:View>
