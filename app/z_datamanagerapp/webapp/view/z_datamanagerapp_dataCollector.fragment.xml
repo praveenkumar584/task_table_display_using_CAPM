@@ -13,7 +13,7 @@ xmlns:core="sap.ui.core">
             <Label id="_IDGenLabel30" text="Job Title"/>
             <Input id="_IDGenInput6" value="{emp>/basicInfo/jobTitle}" required="true"/>
             <Label id="_IDGenLabel24" text="Gender"/>
-            <Select id="_IDGenSelect" selectedKey="{emp>/details/gender}">
+            <Select id="_IDGenSelect" selectedKey="{emp>/details/gender} " required="true">
                 <items>
                     <core:Item id="_IDGenItem8" key="" text="--select--"></core:Item>
                     <core:Item id="_IDGenItem" key="Male" text="Male"/>
@@ -26,7 +26,7 @@ xmlns:core="sap.ui.core">
             <Label id="_IDGenLabel26" text="Department"/>
             <Input id="_IDGenInput4" value="{emp>/details/department}" required="true"/>
             <Label id="_IDGenLabel27" text="Employment Type"/>
-            <Select id="_IDGenSelect1" selectedKey="{emp>/details/employmentType}">
+            <Select id="_IDGenSelect1" selectedKey="{emp>/details/employmentType}" required="true">
                 <items>
                     <core:Item id="_IDGenItem10" key="" text="--select--"></core:Item>
                     <core:Item id="_IDGenItem3" key="Full Time" text="Full Time"/>
@@ -61,7 +61,7 @@ xmlns:core="sap.ui.core">
             <Label id="_IDGenLabel38" text="Phone Number"/>
             <Input id="_IDGenInput12" value="{emp>/details/phoneNumber}" type="Tel"/>
             <Label id="_IDGenLabel39" text="Emergency Contact Name"/>
-            <Input id="_IDGenInput13" value="{emp>/details/emergencyContactName}" required="true"/>
+            <Input id="_IDGenInput13" value="{emp>/details/emergencyContactName}"/>
             <Label id="_IDGenLabel40" text="Emergency Contact Phone"/>
             <Input id="_IDGenInput14" value="{emp>/details/emergencyContactPhone}" type="Tel"/>
             <Label id="_IDGenLabel41" text="Reports To"/>

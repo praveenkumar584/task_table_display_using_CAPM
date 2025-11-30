@@ -9,7 +9,7 @@
         <VBox id="_IDGenVBox" >
             <HBox id="_IDGenHBox" class="sapUiSmallMarginTop firstHBox">
                 <Button id="_IDGenButton" text="Add" press=".onAdd" icon="sap-icon://add" type="Emphasized"/>
-                <Button id="_IDGenButton1" text="Edit" press=".onEdit" icon="sap-icon://edit" type="Ghost" />
+                <Button id="_IDGenButton1" text="Edit" press=".onEdit" icon="sap-icon://edit" type="Attention" />
                 <Button id="_IDGenButton2" text="Delete" press=".onDelete" icon="sap-icon://delete" type="Negative" /> 
                 <Button id="_IDGenButton3" text="Refresh" icon="sap-icon://refresh" press=".onRefresh"/> 
             </HBox>
@@ -83,9 +83,9 @@
 
 
 
-    <Panel id="moreInfoPanel" headerText="More Details" visible="false" class="sapUiSmallMarginTop">
+    <Panel id="moreInfoPanel" headerText="Editable Mode" visible="false" class="sapUiSmallMarginTop">
         <HBox id="_IDGenHBox2" class="secondHBox">
-            <Button id="_IDGenButton10" text="Save" press=".onSaveMoreInfo" icon="sap-icon://save" type="Emphasized"/>
+            <Button id="_IDGenButton10" text="Save" press=".onSaveMoreInfo" icon="sap-icon://save" type="Success" />
             <Button id="_IDGenButton11" text="Close" press=".onCloseMoreInfoEditPanel" type="Reject"/>
         </HBox>
         <f:SimpleForm id="_IDGenSimpleForm2" editable="true" layout="ColumnLayout">
