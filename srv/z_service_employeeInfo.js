@@ -76,7 +76,7 @@ module.exports = cds.service.impl(async function () {
         }
         catch (err) {
             if (err.code === 'SQLITE_CONSTRAINT' || err.code === 301 || err.message.includes("UNIQUE")) {
-                return req.reject(400, "Employee with this ID already exists. Please choose another Employee ID.");
+                return req.reject(400, "Employee with this ID already exists.");
             }
             return req.reject(500, "Unexpected Database Error. Please try again.");
         }

@@ -2,45 +2,33 @@ POST http://localhost:4004/odata/v4/z-service-employee-info/addEmployee
 Content-Type: application/json
 
 {
-    "basicInfo": {
-    "employeeID": 101,
-    "firstName": "Praveen",
-    "lastName": "Kumar",
-    "jobTitle": "Developer"
+  "basicInfo": {
+    "employeeID": 109,
+    "firstName": "Divya",
+    "lastName": "Shukla",
+    "jobTitle": "Cloud Engineer"
   },
   "details": {
-    "gender": "Male",
-    "email": "praveen@example.com",
-    "department": "IT",
+    "gender": "Female",
+    "email": "divya.shukla@example.com",
+    "department": "Cloud Services",
     "employmentType": "Full Time",
     "maritalStatus": "unmarried",
-    "salary": 50000,
-    "birthDate": "1990-05-15",
-    "hireDate": "2025-01-01",
-    "address": "123 Street",
-    "city": "Mumbai",
-    "region": "MH",
-    "postalCode": "400001",
+    "salary": 85000,
+    "birthDate": "1993-11-12",
+    "hireDate": "2023-07-01",
+    "address": "55 Gomti Nagar",
+    "city": "Lucknow",
+    "region": "UP",
+    "postalCode": "226010",
     "country": "India",
-    "phoneNumber": "9876543210",
-    "emergencyContactName": "Jane Doe",
-    "emergencyContactPhone": "9876543211",
-    "reportsTo": "Manager001"
+    "phoneNumber": "9823456781",
+    "emergencyContactName": "Prakash Shukla",
+    "emergencyContactPhone": "9823456782",
+    "reportsTo": "Manager009"
   }
 }
 
-###Update BasicInfo
-POST http://localhost:4004/odata/v4/z-service-employee-info/updateBasicInfo
-Content-Type: application/json
-
-{
-  "basicInfo": {
-    "employeeID": 102,
-    "firstName": "Praveen ",
-    "lastName": "Kumar Updated",
-    "jobTitle": "Senior Developer"
-  }
-}
 
 
 
