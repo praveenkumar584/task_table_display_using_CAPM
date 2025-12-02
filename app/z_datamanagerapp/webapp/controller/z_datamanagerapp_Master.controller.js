@@ -53,95 +53,110 @@ sap.ui.define([
         },
 
         validateEmployeeData: function (basicInfo, details) 
-{
-    // ---------------- BASIC INFO VALIDATION ----------------
-    if (!basicInfo.employeeID) {
-        return "EmployeeID is required.";
-    }
-    if (!/^[A-Za-z0-9]+$/.test(basicInfo.employeeID)) {
-        return "EmployeeID must contain only letters and numbers.";
-    }
+        {
+            if (!basicInfo.employeeID)
+            {
+                return "EmployeeID is required.";
+            }
+            if (!/^[A-Za-z0-9]+$/.test(basicInfo.employeeID))
+            {
+                return "EmployeeID must contain only letters and numbers.";
+            }
 
-    if (!basicInfo.firstName) {
-        return "First Name is required.";
-    }
-    if (!/^[A-Za-z ]+$/.test(basicInfo.firstName)) {
-        return "First Name must contain alphabets only.";
-    }
+            if (!basicInfo.firstName)
+            {
+                return "First Name is required.";
+            }
+            if (!/^[A-Za-z ]+$/.test(basicInfo.firstName))
+            {
+                return "First Name must contain alphabets only.";
+            }
 
-    if (!basicInfo.lastName) {
-        return "Last Name is required.";
-    }
-    if (!/^[A-Za-z ]+$/.test(basicInfo.lastName)) {
-        return "Last Name must contain alphabets only.";
-    }
+            if (!basicInfo.lastName)
+            {
+                return "Last Name is required.";
+            }
+            if (!/^[A-Za-z ]+$/.test(basicInfo.lastName))
+            {
+                return "Last Name must contain alphabets only.";
+            }
 
-    if (!basicInfo.jobTitle) {
-        return "Job Title is required.";
-    }
+            if (!basicInfo.jobTitle)
+            {
+                return "Job Title is required.";
+            }
+            if (!details.gender)
+            {
+                return "Gender is required.";
+            }
+            const genderEnum = ["Male", "Female", "Other"];
+            if (!genderEnum.includes(details.gender))
+            {
+                return "Gender must be one of: Male, Female, Other.";
+            }
 
-    // ---------------- DETAILS VALIDATION ----------------
-    if (!details.gender) {
-        return "Gender is required.";
-    }
-    const genderEnum = ["Male", "Female", "Other"];
-    if (!genderEnum.includes(details.gender)) {
-        return "Gender must be one of: Male, Female, Other.";
-    }
+            if (!details.email)
+            {
+                return "Email is required.";
+            }
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(details.email))
+            {
+                return "Invalid email format.";
+            }
 
-    if (!details.email) {
-        return "Email is required.";
-    }
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(details.email)) {
-        return "Invalid email format.";
-    }
+            if (!details.department)
+            {
+                return "Department is required.";
+            }
 
-    if (!details.department) {
-        return "Department is required.";
-    }
+            if (!details.employmentType)
+            {
+                return "Employment Type is required.";
+            }
+            const empTypeEnum = ["Full Time", "Part Time", "Contract"];
+            if (!empTypeEnum.includes(details.employmentType))
+            {
+                return "Employment Type must be Full Time, Part Time, or Contract.";
+            }
 
-    if (!details.employmentType) {
-        return "Employment Type is required.";
-    }
-    const empTypeEnum = ["Full Time", "Part Time", "Contract"];
-    if (!empTypeEnum.includes(details.employmentType)) {
-        return "Employment Type must be Full Time, Part Time, or Contract.";
-    }
+            const maritalEnum = ["married", "unmarried"];
+            if (details.maritalStatus && !maritalEnum.includes(details.maritalStatus))
+            {
+                return "Marital status must be married or unmarried.";
+            }
 
-    const maritalEnum = ["married", "unmarried"];
-    if (details.maritalStatus && !maritalEnum.includes(details.maritalStatus)) {
-        return "Marital status must be married or unmarried.";
-    }
+            if (details.salary != null && details.salary < 0)
+            {
+                return "Salary must be greater than or equal to 0.";
+            }
 
-    if (details.salary != null && details.salary < 0) {
-        return "Salary must be greater than or equal to 0.";
-    }
+            if (details.birthDate && !/^\d{4}-\d{2}-\d{2}$/.test(details.birthDate))
+            {
+                return "Birth Date must be a valid date (YYYY-MM-DD).";
+            }
 
-    if (details.birthDate && !/^\d{4}-\d{2}-\d{2}$/.test(details.birthDate)) {
-        return "Birth Date must be a valid date (YYYY-MM-DD).";
-    }
+            if (details.hireDate && !/^\d{4}-\d{2}-\d{2}$/.test(details.hireDate))
+            {
+                return "Hire Date must be a valid date (YYYY-MM-DD).";
+            }
 
-    if (details.hireDate && !/^\d{4}-\d{2}-\d{2}$/.test(details.hireDate)) {
-        return "Hire Date must be a valid date (YYYY-MM-DD).";
-    }
+            if (details.phoneNumber && !/^[0-9]{10}$/.test(details.phoneNumber))
+            {
+                return "Phone Number must be 10 digits.";
+            }
 
-    if (details.phoneNumber && !/^[0-9]{10}$/.test(details.phoneNumber)) {
-        return "Phone Number must be 10 digits.";
-    }
+            if (details.emergencyContactPhone && !/^[0-9]{10}$/.test(details.emergencyContactPhone))
+            {
+                return "Emergency Contact Phone must be 10 digits.";
+            }
 
-    if (details.emergencyContactPhone && !/^[0-9]{10}$/.test(details.emergencyContactPhone)) {
-        return "Emergency Contact Phone must be 10 digits.";
-    }
-
-    if (!details.reportsTo) {
-        return "ReportsTo is required.";
-    }
-
-    // ---------------- NO ERRORS ----------------
-    return null;
-},
-
+            if (!details.reportsTo)
+            {
+                return "ReportsTo is required.";
+            }
+            return null;
+        },
 
         onSaveEmployee: async function ()
         {

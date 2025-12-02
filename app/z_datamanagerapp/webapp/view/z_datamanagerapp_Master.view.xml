@@ -86,7 +86,7 @@
     <Panel id="moreInfoPanel" headerText="Editable Mode" visible="false" class="sapUiSmallMarginTop">
         <HBox id="_IDGenHBox2" class="secondHBox">
             <Button id="_IDGenButton10" text="Save" press=".onSaveMoreInfo" icon="sap-icon://save" type="Success" />
-            <Button id="_IDGenButton11" text="Close" press=".onCloseMoreInfoEditPanel" type="Reject"/>
+            <Button id="_IDGenButton11" text="Cancel" press=".onCloseMoreInfoEditPanel" type="Reject"/>
         </HBox>
         <f:SimpleForm id="_IDGenSimpleForm2" editable="true" layout="ColumnLayout">
             <Label id="_IDGenLabel43" text="Employee ID"/>
